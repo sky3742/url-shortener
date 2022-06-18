@@ -14,6 +14,9 @@ func main() {
 	r := mux.NewRouter()
 	r.Use(jsonMiddleware)
 
+	r.HandleFunc("/stats/{id}", api.GetStatById).Methods("GET")
+	r.HandleFunc("/stats", api.GetStats).Methods("GET")
+
 	r.HandleFunc("/create", api.Create).Methods("POST")
 	r.HandleFunc("/{id}", api.RedirectWithId).Methods("GET")
 
