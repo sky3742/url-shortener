@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"url.shortener/api"
 )
 
 const port = "8888"
@@ -12,6 +13,9 @@ const port = "8888"
 func main() {
 	r := mux.NewRouter()
 	r.Use(jsonMiddleware)
+
+	r.HandleFunc("/create", api.Create).Methods("POST")
+	r.HandleFunc("/{id}", api.RedirectWithId).Methods("GET")
 
 	http.ListenAndServe(fmt.Sprintf(":%s", port), r)
 }
